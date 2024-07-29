@@ -1,2 +1,4 @@
-.env
-node_modules
+blink/.env
+blink/node_modules
+autoshade/node_modules
+.DS_Store

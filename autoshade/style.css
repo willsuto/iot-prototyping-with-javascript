@@ -1,0 +1,38 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.shade {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.bar {
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 5px;
+  position: relative;
+}
+
+.indicator {
+  height: 100%;
+  background-color: #76c7c0;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+}

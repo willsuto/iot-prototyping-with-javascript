@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Autoshade</title>
+    <link rel="stylesheet" href="style.css"> 
+  </head>
+  <body>
+    <h1>Current ambient light:</h1>
+    <div class="container">
+      <div class="bar">
+          <div class="indicator" id="indicator">
+              <div class="label" id="label">0%</div>
+          </div>
+      </div>
+    </div>
+    <h1>Shade position:</h1>
+    <div class="shade">
+      <span>Open</span>
+      <div class="container">
+        <div class="bar">
+          <div class="indicator" id="shadeindicator">
+            <div class="label" id="shadelabel">0%</div>
+          </div>
+        </div>
+      </div>
+      <span>Close</span>
+    </div>
+
+    <h1>Desired ambient light:</h1>
+    <span>Dim</span><input type="range" id="slider" min="0" max="100" value="50"><span>Bright</span>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      // Receive photocell and shade position values from server
+      socket.on('values', (values) => {
+        updateAmbientLightIndicator(values.photocellValue);
+        updateShadePositionIndicator(values.shadeValue);
+      });
+
+      const slider = document.getElementById('slider');
+
+      // Every time user adjusts desired light slider, send to server
+      slider.addEventListener('input', (event) => {
+        const value = event.target.value;
+        // Send the slider value via WebSocket
+        socket.emit('desiredLight', value);
+      });
+
+      function updateAmbientLightIndicator(value) {
+        const indicator = document.getElementById('indicator');
+        const label = document.getElementById('label');
+        if (value < 0) value = 0;
+        if (value > 100) value = 100;
+        indicator.style.width = value + '%';
+        label.textContent = value + '%';
+      };
+
+      function updateShadePositionIndicator(value) {
+        const indicator = document.getElementById('shadeindicator');
+        const label = document.getElementById('shadelabel');
+        if (value < 0) value = 0;
+        if (value > 100) value = 100;
+        indicator.style.width = value + '%';
+        label.textContent = value + '%';
+      }
+    </script>
+  </body>
+</html>
