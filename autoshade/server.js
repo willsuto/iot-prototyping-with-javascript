@@ -33,12 +33,10 @@ board.on('ready', () => {
       
       // If too dim, open shade
       if (ambientLight < desiredLight && servoDegrees < 180) {
-        console.log('too dim')
         servo.to(++servoDegrees);
       }
       // If too bright, close shade
       if (ambientLight > desiredLight && servoDegrees > 90) {
-        console.log('too bright');
         servo.to(--servoDegrees);
       }
 

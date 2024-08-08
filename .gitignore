@@ -1,4 +1,6 @@
 blink/.env
 blink/node_modules
+blink/package-lock.json
 autoshade/node_modules
+autoshade/package-lock.json
 .DS_Store

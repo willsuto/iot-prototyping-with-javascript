@@ -1,8 +1,8 @@
 require('dotenv').config();
-var five = require("johnny-five");
-var Particle = require("particle-io");
+const five = require("johnny-five");
+const Particle = require("particle-io");
 
-var board = new five.Board({
+const board = new five.Board({
   io: new Particle({
     token: process.env.TOKEN,
     deviceId: process.env.ID
@@ -11,11 +11,11 @@ var board = new five.Board({
  
 board.on("ready", function() {
   console.log("Device Ready..");
-  var led = new five.Led("D1");
+  const led = new five.Led("D1");
+  
+  led.blink(500);
 
   this.repl.inject({
     led: led
   });
-
-  led.blink(500);
 });
